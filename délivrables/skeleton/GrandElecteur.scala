@@ -1,0 +1,6 @@
+package Gvote
+
+object GrandElecteur {
+
+}
+
