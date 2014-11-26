@@ -35,9 +35,13 @@ class Election(_parametres : ModeScrutin){
 	  tourList.last.cloturer()
 	  tourCourant+=1
 	  
-	  var candidatGagnants :List[Candidat] = SystemeDecomptage(this)
+	  var candidatGagnants :List[Candidat] = SystemeDecomptage.getGagnants(this)
 	  
-	  
+	  for(candidat <- listCandidat){
+	    if(!candidatGagnants.contains(candidat)){
+	    	listCandidat.dropWhile(_ == candidat)
+	    }
+	  }
 	  
 	  tourList = tourList:+(new Tour(this))
 	}
