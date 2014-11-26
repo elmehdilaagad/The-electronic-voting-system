@@ -1,6 +1,0 @@
-package Gvote
-
-object GrandElecteur {
-
-}
-

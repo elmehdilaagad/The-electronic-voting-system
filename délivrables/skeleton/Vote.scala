@@ -1,5 +1,0 @@
-package Gvote
-
-object Vote {
-
-}
