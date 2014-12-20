@@ -12,6 +12,20 @@ class Tour(_election : Election) {
 	  }
 	}
 	
+	def getNbVote(_candidat : Candidat) : Int = {
+		
+		var cpt : Int = 0
+		for(vote <- voteList){
+			 if(vote.candidat.id ==_candidat.id ){
+				 cpt+= 1
+				 
+				 println(vote.electeur .nom +" vote pour "+vote.candidat .nom )
+			 }
+		}
+		
+		return cpt
+	}
+	
 	private def comptabiliser(){
 		var listCandidat : List[Candidat] = election.listCandidat
 		var cpt : Int = 0
@@ -19,6 +33,8 @@ class Tour(_election : Election) {
 		for(candidat <- listCandidat){
 			cpt = getNbVote(candidat)
 			tabCandidatVote = tabCandidatVote:+(candidat,cpt)
+			println(""+candidat.nom+"  a "+cpt+" voix, taille de la liste des votes "+voteList.length)
+			
 		}
 	  	
 	}
@@ -27,42 +43,34 @@ class Tour(_election : Election) {
 	  actifTour = true
 	}
 	
-	def getCandidatAtPos(pos : Int) : Candidat = {
-	   comptabiliser()
-	   var position : Int = 0
-		var max : Int = tabCandidatVote.head._2 
+	def getCandidatAtPos(pos : Int) : List[Candidat] = {
+	    
+		var position : Int = 0
 		var candidatVoteCourant : (Candidat,Int) = null
 		var listCandidat : List[Candidat] = election.listCandidat
+		var listCandidatAtPos : List[Candidat] = List()
+		comptabiliser()	
+		//var max : Int = tabCandidatVote.head._2 
 		
 		var it : Iterator[(Candidat,Int)] = tabCandidatVote.iterator
 		
-		
-		
 		while(it.hasNext){
-			 
+			 candidatVoteCourant = it.next
 			for(candidatVote <- tabCandidatVote){
-				candidatVoteCourant = it.next
+				println("test: "+candidatVoteCourant._2 +"<" +candidatVote._2 )
 				if(candidatVoteCourant._1.id != candidatVote._1 .id
 				    && candidatVoteCourant._2 < candidatVote._2){
 				  position+=1
 				}
 			}
-		  
-			if(position==pos) return candidatVoteCourant._1 
+			 println(" test candidat termine ")
+				if(position==pos){
+					listCandidatAtPos = listCandidatAtPos:+candidatVoteCourant._1
+					println("ok,candidat:"+candidatVoteCourant._1.nom +", taille liste "+listCandidatAtPos.length);
+				}  
 		}
 		
-		return null
+		return listCandidatAtPos
 	}
 
-	def getNbVote(_candidat : Candidat) : Int = {
-		
-		var cpt : Int = 0
-		for(vote <- voteList){
-			 if(vote.candidat.id ==_candidat.id )
-				 cpt+= 1
-		}
-		
-		return cpt
-	}
-	
 }

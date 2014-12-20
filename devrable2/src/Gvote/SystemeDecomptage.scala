@@ -12,14 +12,16 @@ object  SystemeDecomptage extends SystemGeneralDecomptage{
 		  
 		  modeScrutin.typeScrutin match{
 		    case ScrutinCST.uninominal  =>
-		    	if(numeroTour==0){
+		    	if(numeroTour==1){
 		    		
-		    		gagnants = gagnants:+tour.getCandidatAtPos(0)
-		    		gagnants = gagnants:+tour.getCandidatAtPos(1)
+		    		gagnants = gagnants++tour.getCandidatAtPos(0)
 		    		
+		    		if(gagnants.length<=1){
+		    			gagnants = gagnants++tour.getCandidatAtPos(1)
+		    		}
 		    	}
 		    	else{
-		    		gagnants = gagnants:+tour.getCandidatAtPos(0)
+		    		gagnants = gagnants++tour.getCandidatAtPos(0)
 		    	}
 		     	
 		     	

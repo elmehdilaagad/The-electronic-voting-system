@@ -10,21 +10,14 @@ class Election(_modeScrutin : ModeScrutin){
 	var isFinish : Boolean = false ; 
 	var sePresenter = true ; 
 	var voter = false ; 
-	def this(modeScrutin : String, nbTour : Int, listGagnantParTour : List[Int] ){
-		this(new  ModeScrutin(modeScrutin, nbTour, listGagnantParTour));
+	
+	def this(modeScrutin : String, nbTour : Int, listGagnantParTour : List[Int]  ,visibiliteVote : String ){
+		this(new  ModeScrutin(modeScrutin, nbTour, listGagnantParTour,visibiliteVote));
 	}
 	
 	def fermerCandidature{ sePresenter = false } 
 
-	def ouvertureVote():Boolean = {
-	  
-	  if(sePresenter) {
-	    sePresenter = false 
-			voter=true 
-			return true
-		}
-		else return  false ; 
-	}
+	def ouvertureVote() {voter=true }
 	def fermetureVote():Boolean ={
 	  if(voter){
 	    voter = false ; 
