@@ -10,6 +10,6 @@ abstract class AbstractElecteur(_id: Int, _nom : String , _prenom: String){
 	val prenom = _prenom
 	var mesVotes : List[ImplVote] = List()
 	
-	def voter(systemeElection : ImplSystemeDecomptage, candidat : Candidat) : Boolean
-	def voter(systemeElection : ImplSystemeDecomptage, candidats : List[Candidat]) : Boolean
+	def voter(systemeElection : SystemGeneralDecomptage, candidat : Candidat) : Boolean
+	def voter(systemeElection : SystemGeneralDecomptage, candidats : List[Candidat]) : Boolean
 }

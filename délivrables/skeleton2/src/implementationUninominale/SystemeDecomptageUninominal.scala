@@ -10,7 +10,7 @@ class  SystemeDecomptageUninominal(_nom : String) extends SystemGeneralDecomptag
         type ImplElection = Election
         type ImplElecteur = Electeur
         type ImplVote = Vote
-  
+        type returnList = List[Candidat]
         
 		val nom : String = _nom
 		val election : Election = new Election(ScrutinCST.paramUninominal)
