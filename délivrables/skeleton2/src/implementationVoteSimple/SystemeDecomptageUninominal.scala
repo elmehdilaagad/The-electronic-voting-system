@@ -6,7 +6,6 @@ import scala.util.control.Breaks
 class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends SystemeDecomptageSimple(_nom){
         type ImplElection = Election
         type ImplElecteur = Electeur
-        type ImplVote = Vote
         type returnList = List[Candidat]
  
 		override protected val election : Election = _election
