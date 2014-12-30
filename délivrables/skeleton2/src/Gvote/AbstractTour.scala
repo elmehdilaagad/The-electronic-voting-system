@@ -16,7 +16,13 @@ abstract class AbstractTour(_election : AbstractElection) {
 	  actifTour = false
 	}
 	
-	def addVote(vote : ImplVote) : Boolean
+	def addVote(vote : ImplVote) : Boolean = {
+	  if(actifTour){
+		  voteList = voteList:+vote
+		  return true
+	  }
+	  return false
+	}
 	
 	def getNbVoteTotal() : Int = {
 	  return voteList.length

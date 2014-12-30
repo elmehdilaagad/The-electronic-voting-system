@@ -2,7 +2,7 @@ package main
 
 import Factory._
 import Gvote.Candidat
-import implementationUninominale._
+import implementationVoteSimple._
 
 
 object testUninominal {

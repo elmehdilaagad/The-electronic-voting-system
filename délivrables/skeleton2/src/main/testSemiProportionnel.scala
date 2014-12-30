@@ -1,9 +1,9 @@
 package main
 
-import Gvote.SystemeDeComptageSemiProportionel
 import Factory.FactorySemiProportionnel
 import Gvote.Candidat
-import implementationUninominale.Electeur
+import implementationVoteSimple.SystemeDeComptageSemiProportionel
+import implementationVoteSimple.Electeur
 
 object testSemiProportionnel {
 

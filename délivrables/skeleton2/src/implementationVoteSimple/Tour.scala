@@ -1,18 +1,10 @@
-package implementationUninominale
+package implementationVoteSimple
 
 import Gvote.AbstractTour
 import Gvote.Candidat
 
 class Tour(_election : Election) extends AbstractTour(_election) {
 	type ImplVote = Vote
-
-	def addVote(vote : Vote) : Boolean = {
-	  if(actifTour){
-		  voteList = voteList:+vote
-		  return true
-	  }
-	  return false
-	}
 	
 	def getNbVote(_candidat : Candidat) : Int = {
 			  

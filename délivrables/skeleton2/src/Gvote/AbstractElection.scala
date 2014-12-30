@@ -1,5 +1,7 @@
 package Gvote
 
+import scala.util.Failure
+
 abstract class AbstractElection(_modeScrutin : ModeScrutin){
 	type ImplTour <: AbstractTour
   
@@ -34,4 +36,6 @@ abstract class AbstractElection(_modeScrutin : ModeScrutin){
 		listCandidat.dropWhile(_ == c)
 	}
 	
+	def getTour(n : Int) : ImplTour
+		
 }

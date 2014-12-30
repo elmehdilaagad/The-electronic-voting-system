@@ -1,27 +1,21 @@
-package implementationUninominale
+package implementationVoteSimple
 
-import Gvote.SystemGeneralDecomptage
 import Gvote.Candidat
-import Gvote.ModeScrutin
-import Gvote.ScrutinCST
 import scala.util.control.Breaks
 
-class  SystemeDecomptageUninominal(_nom : String) extends SystemGeneralDecomptage(new Election(ScrutinCST.paramUninominal)){
+class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends SystemeDecomptageSimple(_nom){
         type ImplElection = Election
         type ImplElecteur = Electeur
         type ImplVote = Vote
         type returnList = List[Candidat]
-        
-		val nom : String = _nom
-		val election : Election = new Election(ScrutinCST.paramUninominal)
-        private var currentListCandidat : List[Candidat] = List()
+ 
+		override protected val election : Election = _election
+		private var currentListCandidat : List[Candidat] = List()
         var listdeslistedeCandidat:List[List[(Candidat,Int)]] = List()
         var tabCandidatVote : List[(Candidat,Int)] = List()
-        var tourCourant : Int  = 0;
-		var terminer : Boolean = false;
         
         def initElection(){
-		    election.tourList  = List(new Tour(election),new Tour(election))
+            election.tourList = List(new Tour(election),new Tour(election))
 		}
         
         def initCurrentListCandidat(){
@@ -41,11 +35,7 @@ class  SystemeDecomptageUninominal(_nom : String) extends SystemGeneralDecomptag
         }
         
         def ajouterVote(vote : Vote) : Boolean = {
-          
-            if(election.getTour(tourCourant).addVote(vote)){
-            	return true
-            }
-            return false
+            return election.getTour(tourCourant).addVote(vote)
         }
         
     	def comptabiliser (numeroTour : Int) : Boolean = {

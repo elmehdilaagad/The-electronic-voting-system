@@ -1,4 +1,4 @@
-package implementationUninominale
+package implementationVoteSimple
 
 import Gvote.AbstractElection
 import Gvote.ModeScrutin

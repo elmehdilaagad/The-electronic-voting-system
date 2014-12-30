@@ -1,12 +1,9 @@
-package Gvote
+package implementationVoteSimple
 
-import implementationUninominale.Election
-import implementationUninominale.Electeur
-import implementationUninominale.Vote
-import implementationUninominale.Tour
-import scala.collection.mutable.ArrayBuffer
+import Gvote.Candidat
+import Gvote.ScrutinCST
 
-class SystemeDeComptageSemiProportionel(_nom : String)  extends SystemGeneralDecomptage(new Election(ScrutinCST.paramSemiProportionnel)){
+class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  extends SystemeDecomptageSimple(_nom){
 
 	type ImplElection = Election;
 	type ImplElecteur = Electeur;
@@ -17,10 +14,7 @@ class SystemeDeComptageSemiProportionel(_nom : String)  extends SystemGeneralDec
 	= scala.collection.mutable.MutableList();
 	var tabCandidatVote : List[(Candidat,Int)] = List(); //Same Uninomial
 	var currentListCandidat : List[Candidat] = List();
-	var tourCourant : Int  = 0; // Same in Uninomial
-	var terminer : Boolean = false; //Same in Uninomial
-	val nom : String = _nom;
-	val election = new Election(ScrutinCST.paramSemiProportionnel);
+	override protected val election = _election;
 
 	def initElection() = {
 		election.tourList = List(new Tour(election));

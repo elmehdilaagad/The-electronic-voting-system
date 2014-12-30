@@ -5,5 +5,4 @@ class ModeScrutin (_typeScrutin : String , _nbTour  : Int, _listGagnantParTour  
 	val nbTour = _nbTour
 	val listGagnantParTour = _listGagnantParTour
 	val visibiliteVote = _visibiliteVote
-	
 }

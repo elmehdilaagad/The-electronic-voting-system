@@ -1,9 +1,11 @@
 package Factory
 
 import Gvote.FactoryCoutingSystem
-import implementationUninominale.SystemeDecomptageUninominal
+import Gvote.ScrutinCST
+import Gvote.ScrutinCST
+import implementationVoteSimple.Election
+import implementationVoteSimple.SystemeDecomptageUninominal
 
 object FactoryUninominal extends FactoryCoutingSystem {
-  
-	def createCoutingSystem = new SystemeDecomptageUninominal("Election uninominal");
+	def createCoutingSystem = new SystemeDecomptageUninominal("Election uninominal", new Election(ScrutinCST.paramUninominal));
 }
