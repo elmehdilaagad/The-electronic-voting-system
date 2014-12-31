@@ -9,7 +9,14 @@ object ScrutinCST {
 	val prive = "prive";
 	  
 	val paramUninominal = new ModeScrutin(uninominal,2,List(2,1),prive)
-	// Pour le semi proportionnel liste de gagnant par tour egale nombre de sieges
-	val paramSemiProportionnel = new ModeScrutin(semiProportionnel,1,List(20),prive);
+	
+	// Pour le semi proportionnel liste de gagnant par tour égale nombre de sièges
+	/*
+	 * Cette fonction est crée pour le semi proportionnel car on n'a bseoin de savoi
+	 * le nombre de siège à pourvoir
+	 */
+	def paramSemiProportionnel(x : Int) : ModeScrutin = {
+		return new ModeScrutin(semiProportionnel,1,List(x),prive);
+	}
 	
 }

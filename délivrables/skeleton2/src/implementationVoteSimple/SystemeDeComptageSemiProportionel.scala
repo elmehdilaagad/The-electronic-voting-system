@@ -2,11 +2,13 @@ package implementationVoteSimple
 
 import Gvote.Candidat
 import Gvote.ScrutinCST
+import Factory.FactorySemiProportionnel
 
 class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  extends SystemeDecomptageSimple(_nom){
 
 	type ImplElection = Election;
 	type ImplElecteur = Electeur;
+	type ImplVote  = Vote;
 	type returnList = scala.collection.mutable.MutableList[Candidat];
 
 	var tabCandidatVoteWithoutVote : scala.collection.mutable.MutableList[Candidat] 
@@ -14,6 +16,7 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 	var tabCandidatVote : List[(Candidat,Int)] = List(); //Same Uninomial
 	var currentListCandidat : List[Candidat] = List();
 	override protected val election = _election;
+	
 
 	def initElection() = {
 		election.tourList = List(new Tour(election));
@@ -130,9 +133,9 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 	}
 	
 	def getGagnants(): scala.collection.mutable.MutableList[Candidat] = {
-		val numberOfSeat = ScrutinCST.paramSemiProportionnel.listGagnantParTour.apply(0);
+		//val numberOfSeat = ScrutinCST.paramSemiProportionnel.listGagnantParTour.apply(0);
 		//println("number of seat "+numberOfSeat)
-		return tabCandidatVoteWithoutVote.takeRight(numberOfSeat);
+		return tabCandidatVoteWithoutVote.takeRight(FactorySemiProportionnel.numberOfSeat);
 	}
 
 

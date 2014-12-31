@@ -6,7 +6,7 @@ import implementationVoteSimple.Election
 import implementationVoteSimple.SystemeDeComptageSemiProportionel
 
 object FactorySemiProportionnel extends FactoryCoutingSystem {
-  
-	def createCoutingSystem = new SystemeDeComptageSemiProportionel("Election semi proportionnel",new Election(ScrutinCST.paramSemiProportionnel));
+	var numberOfSeat : Int = 0;
+	def createCoutingSystem = new SystemeDeComptageSemiProportionel("Election semi proportionnel",new Election(ScrutinCST.paramSemiProportionnel(numberOfSeat)));
 
 }

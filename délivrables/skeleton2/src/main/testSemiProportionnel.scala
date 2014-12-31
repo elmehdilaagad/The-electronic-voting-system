@@ -8,6 +8,11 @@ import implementationVoteSimple.Electeur
 object testSemiProportionnel {
 
 	def main(args : Array[String]) : Unit = {
+	 
+	 /* 
+	  * On doit obligatoirement définir le nombre de siège
+	  */
+	 FactorySemiProportionnel.numberOfSeat  = 2;
 
 	var system : SystemeDeComptageSemiProportionel = FactorySemiProportionnel.createCoutingSystem;
 
@@ -40,7 +45,8 @@ object testSemiProportionnel {
 	
 	system.runTour;
 	
-	println(system.getGagnants)
+	for (gagnants <- system.getGagnants)
+		println(gagnants.nom +" a obtenu un siège ")
 	
 	
 		
