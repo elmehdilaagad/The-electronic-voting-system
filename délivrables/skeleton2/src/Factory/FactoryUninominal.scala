@@ -2,7 +2,6 @@ package Factory
 
 import Gvote.FactoryCoutingSystem
 import Gvote.ScrutinCST
-import Gvote.ScrutinCST
 import implementationVoteSimple.Election
 import implementationVoteSimple.SystemeDecomptageUninominal
 

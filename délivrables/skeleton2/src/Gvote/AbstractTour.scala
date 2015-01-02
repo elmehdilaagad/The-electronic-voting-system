@@ -17,8 +17,14 @@ abstract class AbstractTour(_election : AbstractElection) {
 	}
 	
 	def addVote(vote : ImplVote) : Boolean = {
+	  
 	  if(actifTour){
-		  voteList = voteList:+vote
+		  
+	      for(votel <- voteList){
+			  if(votel.electeur.id == vote.electeur.id) return false
+		  }
+		  
+	      voteList = voteList:+vote
 		  return true
 	  }
 	  return false

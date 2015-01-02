@@ -10,7 +10,7 @@ object testUninominal {
     def main(args: Array[String]): Unit = {
 	   
         var  systeme : SystemeDecomptageUninominal = FactoryUninominal.createCoutingSystem
-		
+		println(systeme.nom)
         systeme.initElection
         
 		val candidat1 = new Candidat(1 , "candidat1" ,"candidat1" ,"liberte1")
@@ -28,6 +28,7 @@ object testUninominal {
 		val elec4 = new  Electeur (4 , "login4","nom4","prenom4","password4")
 		val elec5 = new  Electeur (5 , "login5","nom5","prenom5","password5")
         val elec6 = new  Electeur (6 , "login6","nom6","prenom6","password6")
+        val elec7 = new  Electeur (7 , "login7","nom7","prenom7","password7")
 
         println("premier tour")
         
@@ -37,6 +38,7 @@ object testUninominal {
 		elec4.voter(systeme, candidat2)
 		elec5.voter(systeme, candidat1)
 		elec6.voter(systeme, candidat2)
+		elec7.voter(systeme, candidat1)
 		
 		systeme.runTour()
 		
@@ -55,14 +57,12 @@ object testUninominal {
 			elec4.voter(systeme, candidat2)
 			elec5.voter(systeme, candidat1)
 			elec6.voter(systeme, candidat2)
+			elec6.voter(systeme, candidat1)
 		
 			systeme.runTour()
 		
 			var listGagnants : List[Candidat] = systeme.getGagnants
-		
-			for(candidat <-  listGagnants){	
-				println(candidat.nom +" a gagne")
-			}
+			println(listGagnants.length+" gagnant(s)")
 		}
     }
      

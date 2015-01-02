@@ -1,6 +1,5 @@
 package Gvote
 
-import scala.util.Failure
 
 abstract class AbstractElection(_modeScrutin : ModeScrutin){
 	type ImplTour <: AbstractTour

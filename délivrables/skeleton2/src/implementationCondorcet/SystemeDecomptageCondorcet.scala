@@ -4,6 +4,7 @@ import Gvote.SystemGeneralDecomptage
 import Gvote.Candidat
 import Gvote.ModeScrutin
 import Gvote.ScrutinCST
+import scala.util.control.Breaks
 
 class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCondorcet) extends SystemGeneralDecomptage(_nom){
         type ImplElection = ElectionCondorcet
@@ -11,14 +12,21 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
         type ImplVote = VoteCondorcet
         type returnList = List[Candidat]
         
-		override protected val election : ElectionCondorcet = new ElectionCondorcet(ScrutinCST.paramUninominal)
+		override protected val election : ElectionCondorcet = _electionCondorcet
         var listVotant : List[ElecteurCondorcet] = List()
         private var currentListCandidat : List[Candidat] = List()
+         //liste des candidats (non elimines), a chaque tour, associes a leur pire et meilleur score face a un autre candidat
+		var listdeslistedeCandidat:List[List[(Candidat,Int,Int)]] = List()
         var tabCandidatVote : List[(Candidat,Int,Int)] = List()
                 
         def initElection(){
-		    election.tourList  = List(new TourCondorcet(election))
-		}
+            var nb : Int = election.modeScrutin.nbTour
+            
+            while(nb>0){
+            	election.tourList = election.tourList:+(new TourCondorcet(election))
+            	nb-=1
+            }
+        }
         
         def initCurrentListCandidat(){
             currentListCandidat = election.listCandidat
@@ -50,6 +58,7 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
         	var max : Int = 0
     	    var v : Int = 0
     	    
+    	    tabCandidatVote = List()
     	    for(cand1 <- currentListCandidat){
     	        for(cand2 <- currentListCandidat){
     	        	if(cand1.id != cand2.id){
@@ -79,7 +88,7 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
     		  
     	        for(scoreCand2 <- tabCandidatVote){
     	        	if(scoreCand1._1.id != scoreCand2._1.id){
-    	        	    if(scoreCand1._2 < scoreCand2._2) 
+    	        	    if(scoreCand1._2 < scoreCand2._2)
     	        	        position += 1
     	        	    else if(scoreCand1._2 == scoreCand2._2){
     	        	        if(scoreCand1._3 < scoreCand2._3)
@@ -92,57 +101,76 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
 					listCandidatAtPos = listCandidatAtPos:+scoreCand1._1
 				}  
     		}
-    		
     		return listCandidatAtPos
     	}
     	
     	def runTour(){
-    	  //A FINIR
-    		election.getTour(tourCourant).cloturer()
-	  
+    	  
+    	    election.getTour(tourCourant).cloturer()
+    		
     		var candidatGagnants : List[Candidat] = getGagnantsTour(tourCourant)
-	  
-    		for(candidat <- election.listCandidat){
-    			if(!candidatGagnants.contains(candidat)){
-    				currentListCandidat.dropWhile(_ == candidat)
-    			}
+    	    var scoreList : List[(Candidat,Int,Int)] = List()
+    		var loop : Breaks = new Breaks
+    		
+    		for(candGagnant <- currentListCandidat){
+    		    loop.breakable{
+    		    	for(scoreCandidat <- tabCandidatVote){
+    		        	if(candGagnant.id == scoreCandidat._1.id){
+    		            	scoreList = scoreList :+ scoreCandidat
+    		            	loop.break
+    		        	}
+    		    	}
+    		    }
     		}
     		
+    		listdeslistedeCandidat = listdeslistedeCandidat:+scoreList
+    		
+    		currentListCandidat = candidatGagnants
+    		
     		tourCourant+=1
-    		if(tourCourant == election.tourList.length){
-    		    terminer = true
+    		
+    		if(tourCourant < election.tourList.length){
+    			for(candidat <-  currentListCandidat ){	
+    		    	println(candidat.nom +" a passe le tour "+tourCourant)
+    			}
+    			election.getTour(tourCourant).lancerTour()
     		}
+    		
     		else{
-    		  election.getTour(tourCourant).lancerTour()
+    		    for(candidat <-  currentListCandidat ){	
+    		    	println(candidat.nom +" a gagne")
+    			}
+    		    terminer = true
+    		    println("l'election est termine")
     		}
     	}
     	
     	def getGagnantsTour(numeroTour : Int):List[Candidat]={
-    		//A FINIR
-	    	/*val modeScrutin : ModeScrutin = election.modeScrutin 
-	    	val tour = election.getTour(numeroTour)
+    		
+    	  val tour = election.getTour(numeroTour)
+	    	
+	    	if(tour == null){
+	    	    println("null")
+	    	    return List()
+	    	}
+	    	
 	    	var gagnants : List[Candidat] = List()
+	    	
+	    	var pos : Int = 0
+	    	var nbCandidat : Int = election.modeScrutin.getNbGagnant(numeroTour)
+
+	    	while(gagnants.length<nbCandidat && gagnants.length != currentListCandidat.length){
+	    		gagnants = gagnants++getCandidatAtPos(pos,numeroTour)
+	    		pos+=1
+	    	}
 	  
-		    if(numeroTour==1){
-		    		
-		    	gagnants = gagnants++getCandidatAtPos(numeroTour,0)
-		    		
-		    	if(gagnants.length<=1){
-		    		gagnants = gagnants++getCandidatAtPos(numeroTour,1)
-		    	}
-		    }
-		    else{
-		    	gagnants = gagnants++getCandidatAtPos(numeroTour,0)
-		    }*/
-	  
-	    	return List()//gagnants
+	    	return gagnants
 		}
     
     def getGagnants():List[Candidat] = {
-        //A FINIR
-      /*if(terminer){
+        if(terminer){
             return currentListCandidat 
-        }*/
+        }
         return List()
     }
 }

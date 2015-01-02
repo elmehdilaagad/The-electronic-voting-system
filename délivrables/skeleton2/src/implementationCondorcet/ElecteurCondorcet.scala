@@ -17,7 +17,7 @@ class ElecteurCondorcet(_id: Int, var login : String, _nom : String , _prenom: S
 	    var numero : Int = 0;
 	    
 	    for(candidat <- candidats){
-	        voteList:+(candidat,numero)
+	        voteList = voteList:+(candidat,numero)
 	        numero+=1
 	    }
 	    
@@ -28,6 +28,7 @@ class ElecteurCondorcet(_id: Int, var login : String, _nom : String , _prenom: S
 			return true
 		}
 		else{
+		    println("error vote electeur")
 			return false
 		}
 	}

@@ -6,16 +6,21 @@ import scala.util.control.Breaks
 class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends SystemeDecomptageSimple(_nom){
         type ImplElection = Election
         type ImplElecteur = Electeur
-        type ImplVote = Vote
         type returnList = List[Candidat]
  
 		override protected val election : Election = _election
 		private var currentListCandidat : List[Candidat] = List()
-        var listdeslistedeCandidat:List[List[(Candidat,Int)]] = List()
+        //liste des candidats (non elimines), a chaque tour, associes a leur nombre de vote
+		var listdeslistedeCandidat:List[List[(Candidat,Int)]] = List()
         var tabCandidatVote : List[(Candidat,Int)] = List()
         
         def initElection(){
-            election.tourList = List(new Tour(election),new Tour(election))
+        	var nb : Int = election.modeScrutin.nbTour
+        	election.tourList = List()
+            while(nb>0){
+            	election.tourList = election.tourList:+(new Tour(election))
+            	nb-=1
+            }
 		}
         
         def initCurrentListCandidat(){
@@ -38,6 +43,7 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
             return election.getTour(tourCourant).addVote(vote)
         }
         
+        
     	def comptabiliser (numeroTour : Int) : Boolean = {
     	    var cpt : Int = 0
     	    val tour = election.getTour(numeroTour)
@@ -52,17 +58,17 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
     	    return true
     	}
     	
+    
     	def getCandidatAtPos(pos : Int, numeroTour: Int):List[Candidat] = {
     		var position : Int = 0
     		var listCandidatAtPos : List[Candidat] = List()
     		
-    		if(!comptabiliser(numeroTour))	return List()	 
+    		if(!comptabiliser(numeroTour))	return List()
 
     		for(candidatVoteCourant <- tabCandidatVote){
     			position = 0
 
     		    for(candidatVote <- tabCandidatVote){
-    				//println("test: "+candidatVoteCourant._2 +"<" +candidatVote._2 )
     				if(candidatVoteCourant._1.id != candidatVote._1 .id
 				      && candidatVoteCourant._2 < candidatVote._2){
     					position+=1
@@ -89,14 +95,14 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
     		    loop.breakable{
     		    	for(scoreCandidat <- tabCandidatVote){
     		        	if(candGagnant.id == scoreCandidat._1.id){
-    		            	scoreList :+ scoreCandidat
+    		            	scoreList = scoreList :+ scoreCandidat
     		            	loop.break
     		        	}
     		    	}
     		    }
     		}
     		
-    		listdeslistedeCandidat:+scoreList
+    		listdeslistedeCandidat = listdeslistedeCandidat:+scoreList
     		
     		var nbVotePremier : Float = tour.getNbVote(candidatGagnants.head)
 		    var nbVoteTotal : Float = tour.getNbVoteTotal 
@@ -104,28 +110,25 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
 		    if(pourcentage>=50 && getCandidatAtPos(0, tourCourant).length==1){
 		        candidatGagnants = List(candidatGagnants.head)
 		        tourCourant = election.tourList.length
-		        println(candidatGagnants.head.nom+" a gagne")
 		    }
     		
-    		for(candidat <- currentListCandidat){
-    			if(!candidatGagnants.contains(candidat)){
-    			    currentListCandidat = candidatGagnants
-    			}
-    		}
+    		currentListCandidat = candidatGagnants
     		
     		tourCourant+=1
     		
-    		if(tourCourant < election.tourList.length)
+    		if(tourCourant < election.tourList.length){
     			for(candidat <-  currentListCandidat ){	
     		    	println(candidat.nom +" a passe le tour "+tourCourant)
     			}
+    			election.getTour(tourCourant).lancerTour()
+    		}
     		
-    		if(tourCourant >= election.tourList.length){
+    		else{
+    		    for(candidat <-  currentListCandidat ){	
+    		    	println(candidat.nom +" a gagne")
+    			}
     		    terminer = true	
     		    println("l'election est termine")
-    		}
-    		else{ 		  
-    		  election.getTour(tourCourant).lancerTour()
     		}
     		
     	}
@@ -141,24 +144,20 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
 	    	
 	    	var gagnants : List[Candidat] = List()
 	    	
-		    if(numeroTour==0){
-		    		
-		    	gagnants = gagnants++getCandidatAtPos(0,numeroTour)
-		    		
-		    	if(gagnants.length==1){
-		    	    gagnants = gagnants++getCandidatAtPos(1,numeroTour)
-		    	}
-		    }
-		    else{
-		    	gagnants = gagnants++getCandidatAtPos(0,numeroTour)
-		    }
+	    	var pos : Int = 0
+	    	var nbCandidat : Int = election.modeScrutin.getNbGagnant(numeroTour)
+
+	    	while(gagnants.length<nbCandidat && gagnants.length != currentListCandidat.length){
+	    		gagnants = gagnants++getCandidatAtPos(pos,numeroTour)
+	    		pos+=1
+	    	}
 	  
 	    	return gagnants
 		}
     
     def getGagnants():List[Candidat] = {
         if(terminer){
-            return currentListCandidat 
+            return currentListCandidat
         }
         return List()
     }

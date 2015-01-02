@@ -8,7 +8,6 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 
 	type ImplElection = Election;
 	type ImplElecteur = Electeur;
-	type ImplVote  = Vote;
 	type returnList = scala.collection.mutable.MutableList[Candidat];
 
 	var tabCandidatVoteWithoutVote : scala.collection.mutable.MutableList[Candidat] 
