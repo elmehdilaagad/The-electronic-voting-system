@@ -6,7 +6,7 @@ abstract class SystemGeneralDecomptage(_nom : String) {
 	type ImplElection <: AbstractElection
 	type ImplElecteur <: AbstractElecteur
 	type ImplVote <: AbstractVote
-	type returnList <: AbstractSeq[Candidat]; //Ajouter par Ceulain car j'avais besoin d'un retour liste mutable 
+	type returnList <: AbstractSeq[_]; //Ajouter par Ceulain car j'avais besoin d'un retour liste mutable 
 	
 	val nom : String = _nom
 	protected val election : ImplElection
