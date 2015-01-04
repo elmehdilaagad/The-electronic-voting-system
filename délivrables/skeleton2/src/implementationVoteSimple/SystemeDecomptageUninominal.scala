@@ -1,14 +1,13 @@
 package implementationVoteSimple
 
-import Gvote.Candidat
 import scala.util.control.Breaks
 
-class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends SystemeDecomptageSimple(_nom){
-        type ImplElection = Election
-        type ImplElecteur = Electeur
+class  SystemeDecomptageUninominal(_nom : String, election : Election) extends SystemeDecomptageSimple(election, _nom){
+        
+		type ImplElecteur = Electeur
         type returnList = List[Candidat]
  
-		override protected val election : Election = _election
+		//override protected val election : Election = _election
 		private var currentListCandidat : List[Candidat] = List()
         //liste des candidats (non elimines), a chaque tour, associes a leur nombre de vote
 		var listdeslistedeCandidat:List[List[(Candidat,Int)]] = List()
@@ -27,26 +26,25 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
             currentListCandidat = election.listCandidat
         }
         
-        def ajouterCandidat(candidat : Candidat) : Boolean = {
-            election.addCandidat(candidat)
-            return true
-        }
-        
         def cloturerCandidature(){
             election.fermerCandidature()
             election.ouvertureVote()
             initCurrentListCandidat()
-            election.getTour(tourCourant).lancerTour()
+            election.tourList.apply(tourCourant).lancerTour()
         }
         
         def ajouterVote(vote : Vote) : Boolean = {
-            return election.getTour(tourCourant).addVote(vote)
+        	for(candidat <- currentListCandidat){
+        	    if(vote.candidat.id == candidat.id)
+                    return election.tourList.apply(tourCourant).addVote(vote)
+        	}
+            return false
         }
         
         
     	def comptabiliser (numeroTour : Int) : Boolean = {
     	    var cpt : Int = 0
-    	    val tour = election.getTour(numeroTour)
+    	    val tour = election.tourList.apply(numeroTour)
     	    
     	    if(tour==null) return false
     	    
@@ -83,7 +81,7 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
     	}
     	
     	def runTour(){
-    		var tour = election.getTour(tourCourant)
+    		var tour = election.tourList.apply(tourCourant)
     		tour.cloturer()
     		
     		var candidatGagnants : List[Candidat] = getGagnantsTour(tourCourant)
@@ -120,7 +118,7 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
     			for(candidat <-  currentListCandidat ){	
     		    	println(candidat.nom +" a passe le tour "+tourCourant)
     			}
-    			election.getTour(tourCourant).lancerTour()
+    			election.tourList.apply(tourCourant).lancerTour()
     		}
     		
     		else{
@@ -135,7 +133,7 @@ class  SystemeDecomptageUninominal(_nom : String, _election : Election) extends 
     	
     	def getGagnantsTour(numeroTour : Int):List[Candidat] = {
     	 
-	    	val tour = election.getTour(numeroTour)
+	    	val tour = election.tourList.apply(numeroTour)
 	    	
 	    	if(tour == null){
 	    	    println("null")

@@ -3,9 +3,10 @@ package Gvote
 
 abstract class AbstractElection(_modeScrutin : ModeScrutin){
 	type ImplTour <: AbstractTour
-  
-	val modeScrutin = _modeScrutin 
-	var listCandidat : List[Candidat] = List()
+	type Candidate <: Eligible
+	
+	val modeScrutin = _modeScrutin
+	var listCandidat : List[Candidate] = List()
 	var tourList : List[ImplTour] = List()
 	var isFinish : Boolean = false ;
 	var sePresenter = true ; 
@@ -15,7 +16,7 @@ abstract class AbstractElection(_modeScrutin : ModeScrutin){
 		this(new  ModeScrutin(modeScrutin, nbTour, listGagnantParTour,visibiliteVote));
 	}
 	
-	def fermerCandidature() { sePresenter = false } 
+	def fermerCandidature() { sePresenter = false }
 
 	def ouvertureVote() {voter=true }
 	def fermetureVote():Boolean ={
@@ -26,15 +27,16 @@ abstract class AbstractElection(_modeScrutin : ModeScrutin){
 	    return false 
 	}
 	
-	def addCandidat(c : Candidat){
-	  if(sePresenter)
-		  listCandidat = listCandidat:+c
+	def addCandidat(c : Candidate) : Boolean = {
+	    if(sePresenter && !listCandidat.contains(c)){
+	    	listCandidat = listCandidat:+c
+	    	return true
+	    }
+	    return false
 	}
 
-	def removeCandidat(c : Candidat){
-		listCandidat.dropWhile(_ == c)
+	def removeCandidat(c : Candidate){
+		listCandidat.dropWhile(_.id == c.id)
 	}
 	
-	def getTour(n : Int) : ImplTour
-		
 }

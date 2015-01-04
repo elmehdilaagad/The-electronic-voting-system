@@ -1,5 +1,7 @@
 package Gvote
 
+import implementationVoteSimple.Candidat
+
 
 abstract class AbstractElecteur(_id: Int, _nom : String , _prenom: String){
 	type ImplVote <: AbstractVote

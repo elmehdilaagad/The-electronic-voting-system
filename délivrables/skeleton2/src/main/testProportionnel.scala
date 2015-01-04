@@ -3,8 +3,7 @@ package main
 import implementationVoteSimple.SystemDeComptageProportionel
 import Factory.FactorySemiProportionnel
 import Factory.FactoryProportionnel
-import Gvote.Candidat
-import implementationVoteSimple.Electeur
+import implementationVoteSimple._
 
 object testProportionnel {
 
@@ -15,13 +14,15 @@ object testProportionnel {
     
     system.initElection;
     
-    val candidat1 = new Candidat(1 , "PartieA" ,"candidat1" ,"liberte1")
+    val parti : Parti = new Parti(0, "PARTI")
+    
+    val candidat1 = new Candidat(1 , "PartieA" ,"candidat1" ,parti)
 	candidat1.sePresenter(system);
-	val candidat2 = new Candidat(2 , "PartieB" ,"candidat2" ,"liberte2")
+	val candidat2 = new Candidat(2 , "PartieB" ,"candidat2" ,parti)
 	candidat2.sePresenter(system);
-	val candidat3 = new Candidat(3 , "PartieC" ,"candidat3" ,"liberte3")
+	val candidat3 = new Candidat(3 , "PartieC" ,"candidat3" ,parti)
 	candidat3.sePresenter(system);
-    val candidat4 = new Candidat(4, "PartieD" ,"candidat4" ,"liberte4")
+    val candidat4 = new Candidat(4, "PartieD" ,"candidat4" ,parti)
 	candidat4.sePresenter(system);
    
     system.cloturerCandidature;
@@ -51,7 +52,7 @@ object testProportionnel {
     system.runTour;
   //println(system.getGagnants.length);
     for(gagnants <- system.getGagnants){
-      println(gagnants._1.nom  + " a obtenu "+gagnants._2.intValue + " sièges");
+      println(gagnants._1.nom  + " a obtenu "+gagnants._2.intValue + " sie.apply.applyges");
     }
     
   }

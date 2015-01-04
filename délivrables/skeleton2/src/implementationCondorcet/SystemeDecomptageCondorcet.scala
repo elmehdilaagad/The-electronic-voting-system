@@ -1,19 +1,22 @@
 package implementationCondorcet
 
 import Gvote.SystemGeneralDecomptage
-import Gvote.Candidat
+import implementationVoteSimple.Candidat
 import Gvote.ModeScrutin
 import Gvote.ScrutinCST
 import scala.util.control.Breaks
+import Gvote.Eligible
+import implementationVoteSimple.Candidat
 
 class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCondorcet) extends SystemGeneralDecomptage(_nom){
         type ImplElection = ElectionCondorcet
         type ImplElecteur = ElecteurCondorcet
+        type Candidate = Candidat
         type ImplVote = VoteCondorcet
         type returnList = List[Candidat]
         
 		override protected val election : ElectionCondorcet = _electionCondorcet
-        var listVotant : List[ElecteurCondorcet] = List()
+        //var listVotant : List[ElecteurCondorcet] = List()
         private var currentListCandidat : List[Candidat] = List()
          //liste des candidats (non elimines), a chaque tour, associes a leur pire et meilleur score face a un autre candidat
 		var listdeslistedeCandidat:List[List[(Candidat,Int,Int)]] = List()
@@ -32,9 +35,15 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
             currentListCandidat = election.listCandidat
         }
         
-        def ajouterCandidat(candidat : Candidat) : Boolean = {
-            election.addCandidat(candidat)
-            return true
+        def ajouterCandidat(candidat : Eligible) : Boolean = {
+        	candidat match{
+        	  case cand : Candidat => {
+        	      election.addCandidat(cand)
+        	      return true
+        	  }
+        	}
+            
+            return false
         }
         
         def cloturerCandidature(){
@@ -45,7 +54,17 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
         }
         
         def ajouterVote(vote : VoteCondorcet) : Boolean = {
-          return election.getTour(tourCourant).addVote(vote)
+            /*var ok : Boolean = false
+            if(vote.candidats.length == currentListCandidat.length)
+            	for(candidat <- currentListCandidat){
+            	    for(cand <- vote.candidats){
+            	    	
+            	    }
+            	}*/
+                return election.tourList.apply(tourCourant).addVote(vote)
+            //}
+        	//}
+            return false
         }
         
     	def comptabiliser (numeroTour : Int) : Boolean = {

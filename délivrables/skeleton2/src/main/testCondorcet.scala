@@ -1,7 +1,8 @@
 package main
 
 import Factory._
-import Gvote.Candidat
+import implementationVoteSimple.Parti
+import implementationVoteSimple.Candidat
 import implementationCondorcet._
 
 
@@ -13,11 +14,13 @@ object testCondorcet {
 		println(systeme.nom)
         systeme.initElection
         
-		val candidat1 = new Candidat(1 , "candidat1" ,"candidat1" ,"liberte1")
+        val parti : Parti = new Parti(0, "PARTI")
+        
+		val candidat1 = new Candidat(1 , "candidat1" ,"candidat1" ,parti)
 		candidat1.sePresenter(systeme)
-		val candidat2 = new Candidat(2 , "candidat2" ,"candidat2" ,"liberte2")
+		val candidat2 = new Candidat(2 , "candidat2" ,"candidat2" ,parti)
 		candidat2.sePresenter(systeme)
-		val candidat3 = new Candidat(3 , "candidat3" ,"candidat3" ,"liberte3")
+		val candidat3 = new Candidat(3 , "candidat3" ,"candidat3" ,parti)
 		candidat3.sePresenter(systeme)
 		
 		systeme.cloturerCandidature

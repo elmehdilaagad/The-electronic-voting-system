@@ -1,16 +1,13 @@
 package implementationVoteSimple
 
-import Gvote.Candidat
 import scala.collection.mutable.MutableList
 import scala.collection.AbstractSeq
 import Factory.FactoryProportionnel
 import scala.util.control._
 
-class SystemDeComptageProportionel(_nom : String, _election : Election) extends SystemeDecomptageSimple(_nom) {
+class SystemDeComptageProportionel(_nom : String, election : Election) extends SystemeDecomptageSimple(election, _nom) {
 
-	type ImplElection = Election;
 	type ImplElecteur = Electeur;
-	//type ImplVote  = Vote;
 	type returnList = AbstractSeq[_];
 
 
@@ -22,14 +19,14 @@ class SystemDeComptageProportionel(_nom : String, _election : Election) extends 
 	var listSortByQuot : MutableList[(Candidat,BigDecimal,BigDecimal,BigDecimal)] = MutableList();
 	var listSortByRemind : MutableList[(Candidat,BigDecimal,BigDecimal,BigDecimal)] = MutableList();
 	var listWinners : MutableList[(Candidat,BigDecimal,BigDecimal )] = MutableList();
-	override protected val election = _election;
+	//override protected val election = _election;
 	tourCourant = 0;
 
 
-	def ajouterCandidat(candidat : Candidat) : Boolean = {
+	/*def ajouterCandidat(candidat : Candidat) : Boolean = {
 			election.addCandidat(candidat);
 			return true;
-	}
+	}*/
 	def initElection() = {
 
 		//println("init");
@@ -45,17 +42,17 @@ class SystemDeComptageProportionel(_nom : String, _election : Election) extends 
 		election.fermerCandidature();
 		election.ouvertureVote();
 		initCurrentListCandidat();
-		election.getTour(tourCourant).lancerTour();
+		election.tourList.apply(tourCourant).lancerTour();
 	}
 
 	def ajouterVote(vote : Vote) : Boolean = {
 			numberOfVote += 1.0;
-			return election.getTour(tourCourant).addVote(vote);
+			return election.tourList.apply(tourCourant).addVote(vote);
 	}
 	def comptabiliser (numeroTour : Int) : Boolean ={
 			electoralQuot  = numberOfVote / numberOfSeat ;
 			var cpt : BigDecimal = 0;
-			val tour = election.getTour(numeroTour);
+			val tour = election.tourList.apply(numeroTour);
 			if(tour == null)
 				return false;
 			for(candidat <- currentListCandidat){
@@ -73,7 +70,7 @@ class SystemDeComptageProportionel(_nom : String, _election : Election) extends 
 
 
 	def runTour(){	
-		election.getTour(tourCourant).cloturer();
+		election.tourList.apply(tourCourant).cloturer();
 		if(tourCourant == election.tourList.length){
 			terminer = true;
 		}

@@ -1,9 +1,7 @@
 package main
 
 import Factory.FactorySemiProportionnel
-import Gvote.Candidat
-import implementationVoteSimple.SystemeDeComptageSemiProportionel
-import implementationVoteSimple.Electeur
+import implementationVoteSimple._
 
 object testSemiProportionnel {
 
@@ -18,11 +16,13 @@ object testSemiProportionnel {
 
 	system.initElection;
 
-	val candidat1 = new Candidat(1 , "candidat1" ,"candidat1" ,"liberte1")
+	val parti : Parti = new Parti(0, "PARTI")
+	
+	val candidat1 = new Candidat(1 , "candidat1" ,"candidat1" ,parti)
 	candidat1.sePresenter(system);
-	val candidat2 = new Candidat(2 , "candidat2" ,"candidat2" ,"liberte2")
+	val candidat2 = new Candidat(2 , "candidat2" ,"candidat2" ,parti)
 	candidat2.sePresenter(system);
-	val candidat3 = new Candidat(3 , "candidat3" ,"candidat3" ,"liberte3")
+	val candidat3 = new Candidat(3 , "candidat3" ,"candidat3" ,parti)
 	candidat3.sePresenter(system);
 	
 	system.cloturerCandidature;
@@ -46,7 +46,7 @@ object testSemiProportionnel {
 	system.runTour;
 	
 	for (gagnants <- system.getGagnants)
-		println(gagnants.nom +" a obtenu un siège ")
+		println(gagnants.nom +" a obtenu un siege ")
 	
 	
 		

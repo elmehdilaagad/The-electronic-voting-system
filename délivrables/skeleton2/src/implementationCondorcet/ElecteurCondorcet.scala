@@ -1,7 +1,7 @@
 package implementationCondorcet
 
 import Gvote.AbstractElecteur
-import Gvote.Candidat
+import implementationVoteSimple.Candidat
 
 class ElecteurCondorcet(_id: Int, var login : String, _nom : String , _prenom: String, var password : String)
 		extends AbstractElecteur(_id,_nom,_prenom){

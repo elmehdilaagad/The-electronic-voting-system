@@ -1,12 +1,10 @@
 package implementationVoteSimple
 
-import Gvote.Candidat
 import Gvote.ScrutinCST
 import Factory.FactorySemiProportionnel
 
-class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  extends SystemeDecomptageSimple(_nom){
+class SystemeDeComptageSemiProportionel(_nom : String, election : Election)  extends SystemeDecomptageSimple(election, _nom){
 
-	type ImplElection = Election;
 	type ImplElecteur = Electeur;
 	type returnList = scala.collection.mutable.MutableList[Candidat];
 
@@ -14,16 +12,11 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 	= scala.collection.mutable.MutableList();
 	var tabCandidatVote : List[(Candidat,Int)] = List(); //Same Uninomial
 	var currentListCandidat : List[Candidat] = List();
-	override protected val election = _election;
+	//override protected val election = _election;
 	
 
 	def initElection() = {
 		election.tourList = List(new Tour(election));
-	}
-	// Pareil que dans Decomptage Uninomial à factoriser ???
-	def ajouterCandidat(candidat : Candidat) : Boolean = {
-		election.addCandidat(candidat);
-		return true;
 	}
 	// Same uninomial
 	def initCurrentListCandidat(){
@@ -34,15 +27,19 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 		election.fermerCandidature();
 		election.ouvertureVote();
 		initCurrentListCandidat();
-		election.getTour(tourCourant).lancerTour();
+		election.tourList.apply(tourCourant).lancerTour();
 	}
 
 	def ajouterVote(vote : Vote) : Boolean = {
-			return election.getTour(tourCourant).addVote(vote);
+		for(candidat <- currentListCandidat){
+        	    if(vote.candidat.id == candidat.id)
+                    return election.tourList.apply(tourCourant).addVote(vote)
+        	}
+        return false
 	}
 	def comptabiliser (numeroTour : Int) : Boolean ={
 		var cpt : Int = 0;
-		val tour = election.getTour(numeroTour);
+		val tour = election.tourList.apply(numeroTour);
 		if(tour == null)
 		  return false;
 		for(candidat <- currentListCandidat){
@@ -89,7 +86,7 @@ class SystemeDeComptageSemiProportionel(_nom : String, _election : Election)  ex
 	def runTour(){
 	  //println("tour courant " +tourCourant )
 	//  comptabiliser(tourCourant);
-    		election.getTour(tourCourant).cloturer()
+    		election.tourList.apply(tourCourant).cloturer()
 	  
     		var candidatGagnants :  scala.collection.mutable.MutableList[Candidat] = getGagnantsTour(tourCourant);
 	  

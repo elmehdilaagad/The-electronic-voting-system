@@ -8,6 +8,7 @@ object ScrutinCST {
 	val proportionnel = "PROPORTIONNEL";
 	val condorcet = "CONDORCET";
 
+	
 	val public = "public";
 	val prive = "prive";
 	  
@@ -22,12 +23,13 @@ object ScrutinCST {
 	def paramSemiProportionnel(x : Int) : ModeScrutin = {
 		return new ModeScrutin(semiProportionnel,1,List(x),prive);
 	}
+	
 	def paramCondorcet() : ModeScrutin = {
 		return new ModeScrutin(condorcet,1,List(1),prive)
 	}
 	
 	def paramProportionnel(x : Int) : ModeScrutin = {
-	  return new ModeScrutin(proportionnel,1,List(x),prive)
-	}
+	    return new ModeScrutin(proportionnel,1,List(x),prive)
+ 	}
 	
 }
