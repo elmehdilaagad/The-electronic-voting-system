@@ -4,6 +4,7 @@ import scala.collection.mutable.MutableList
 import scala.collection.AbstractSeq
 import Factory.FactoryProportionnel
 import scala.util.control._
+import Gvote.Candidat
 
 class SystemDeComptageProportionel(_nom : String, election : Election) extends SystemeDecomptageSimple(election, _nom) {
 

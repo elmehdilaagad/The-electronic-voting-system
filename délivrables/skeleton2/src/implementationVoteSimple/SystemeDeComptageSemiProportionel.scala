@@ -2,6 +2,7 @@ package implementationVoteSimple
 
 import Gvote.ScrutinCST
 import Factory.FactorySemiProportionnel
+import Gvote.Candidat
 
 class SystemeDeComptageSemiProportionel(_nom : String, election : Election)  extends SystemeDecomptageSimple(election, _nom){
 

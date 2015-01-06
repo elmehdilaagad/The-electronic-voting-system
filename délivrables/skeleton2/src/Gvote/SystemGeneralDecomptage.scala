@@ -13,11 +13,12 @@ abstract class SystemGeneralDecomptage(_nom : String) {
 	protected val election : ImplElection
 	protected var tourCourant : Int = 0
 	var terminer : Boolean = false; //Same in Uninomial
+	protected var GUIType : String
 	
     def initElection():Unit
     def ajouterCandidat(candidat : Eligible):Boolean
     def cloturerCandidature:Unit
-    def getCandidat() : List[Eligible] = election.listCandidat
+    def getCandidats() : List[Eligible] = election.listCandidat
     def ajouterVote(vote : ImplVote):Boolean
     def comptabiliser(numeroTour : Int):Boolean
     //retourne la liste des candidats a la position pos
@@ -26,5 +27,5 @@ abstract class SystemGeneralDecomptage(_nom : String) {
     def runTour():Unit
     def getGagnantsTour(i : Int): returnList
     def getGagnants(): returnList
-	
+	def getGUIType = GUIType
 }

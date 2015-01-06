@@ -1,6 +1,7 @@
 package implementationVoteSimple
 
 import Gvote.AbstractTour
+import Gvote.Candidat
 
 class Tour(_election : Election) extends AbstractTour(_election) {
 	type ImplVote = Vote

@@ -1,12 +1,13 @@
 package implementationCondorcet
 
 import Gvote.AbstractElecteur
-import implementationVoteSimple.Candidat
+import Gvote.Candidat
 
 class ElecteurCondorcet(_id: Int, var login : String, _nom : String , _prenom: String, var password : String)
 		extends AbstractElecteur(_id,_nom,_prenom){
 	type ImplVote = VoteCondorcet
 	type ImplSystemeDecomptage = SystemeDecomptageCondorcet
+	type Candidate = Candidat
   
 	def voter(systemeElection : SystemeDecomptageCondorcet, candidat : Candidat) : Boolean = {
 		return false

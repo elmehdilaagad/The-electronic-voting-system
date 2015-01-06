@@ -1,6 +1,7 @@
 package implementationVoteSimple
 
 import scala.util.control.Breaks
+import Gvote.Candidat
 
 class  SystemeDecomptageUninominal(_nom : String, election : Election) extends SystemeDecomptageSimple(election, _nom){
         

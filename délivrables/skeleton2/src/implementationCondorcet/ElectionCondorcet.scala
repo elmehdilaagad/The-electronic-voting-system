@@ -2,7 +2,7 @@ package implementationCondorcet
 
 import Gvote.AbstractElection
 import Gvote.ModeScrutin
-import implementationVoteSimple.Candidat
+import Gvote.Candidat
 
 class ElectionCondorcet(_modeScrutin : ModeScrutin) extends AbstractElection(_modeScrutin){
 	type ImplTour = TourCondorcet

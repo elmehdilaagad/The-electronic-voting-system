@@ -1,6 +1,6 @@
 package implementationPlurinominale
 import Gvote._
-import implementationVoteSimple.Candidat
+import GUIComponent.GUIComponentCST
 
 
 
@@ -15,8 +15,9 @@ class SystemeDecomptagePlurinomial(_nom : String ,_election : ElectionPlurinomin
 	type Candidate = Candidat
 	override val nom : String = _nom
       
-       	protected var currentListCandidat : List[Candidat] = List()
-        protected var tabCandidatVote : List[(Candidat,Int)] = List()
+	var GUIType = GUIComponentCST.listeDeroulante
+    protected var currentListCandidat : List[Candidat] = List()
+    protected var tabCandidatVote : List[(Candidat,Int)] = List()
 		
 		// à mettre en cas de soucis
         override protected val election :ElectionPlurinominale = _election

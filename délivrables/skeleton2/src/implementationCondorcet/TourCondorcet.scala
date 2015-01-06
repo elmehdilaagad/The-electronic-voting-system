@@ -1,7 +1,7 @@
 package implementationCondorcet
 
 import Gvote.AbstractTour
-import implementationVoteSimple.Candidat
+import Gvote.Candidat
 import scala.util.control.Breaks
 
 class TourCondorcet(_election : ElectionCondorcet) extends AbstractTour(_election) {

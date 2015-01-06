@@ -1,12 +1,13 @@
 package implementationCondorcet
 
 import Gvote.SystemGeneralDecomptage
-import implementationVoteSimple.Candidat
+import Gvote.Candidat
 import Gvote.ModeScrutin
 import Gvote.ScrutinCST
 import scala.util.control.Breaks
 import Gvote.Eligible
-import implementationVoteSimple.Candidat
+import Gvote.Candidat
+import GUIComponent.GUIComponentCST
 
 class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCondorcet) extends SystemGeneralDecomptage(_nom){
         type ImplElection = ElectionCondorcet
@@ -14,6 +15,8 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
         type Candidate = Candidat
         type ImplVote = VoteCondorcet
         type returnList = List[Candidat]
+        
+        var GUIType = GUIComponentCST.listeDeroulante
         
 		override protected val election : ElectionCondorcet = _electionCondorcet
         //var listVotant : List[ElecteurCondorcet] = List()
@@ -37,10 +40,7 @@ class  SystemeDecomptageCondorcet(_nom : String, _electionCondorcet : ElectionCo
         
         def ajouterCandidat(candidat : Eligible) : Boolean = {
         	candidat match{
-        	  case cand : Candidat => {
-        	      election.addCandidat(cand)
-        	      return true
-        	  }
+        	  case cand : Candidat => return election.addCandidat(cand)
         	}
             
             return false
