@@ -1,5 +1,4 @@
 package implementationPlurinominale;
-import implementationVoteSimple.Candidat
 
 import Gvote._
 

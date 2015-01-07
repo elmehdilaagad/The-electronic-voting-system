@@ -19,7 +19,7 @@ class SystemeDecomptagePlurinomial(_nom : String ,_election : ElectionPlurinomin
     protected var currentListCandidat : List[Candidat] = List()
     protected var tabCandidatVote : List[(Candidat,Int)] = List()
 		
-		// à mettre en cas de soucis
+		// a mettre en cas de soucis
         override protected val election :ElectionPlurinominale = _election
         def initElection(){
         	var a :TourPlurinominale = new TourPlurinominale(tourCourant  , election )

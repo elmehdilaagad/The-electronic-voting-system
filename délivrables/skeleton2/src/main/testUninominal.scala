@@ -2,6 +2,8 @@ package main
 
 import Factory._
 import implementationVoteSimple._
+import Gvote.Parti
+import Gvote.Candidat
 
 
 object testUninominal {

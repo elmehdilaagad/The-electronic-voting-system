@@ -1,8 +1,8 @@
 package main
 
 import Factory._
-import implementationVoteSimple.Parti
-import implementationVoteSimple.Candidat
+import Gvote.Parti
+import Gvote.Candidat
 import implementationCondorcet._
 
 

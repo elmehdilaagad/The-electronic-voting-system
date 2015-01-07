@@ -1,13 +1,13 @@
 package implementationPlurinominale
 import Gvote._
-import implementationVoteSimple.Candidat
 
 
 
 class Electeur(_id: Int, var login : String, _nom : String , _prenom: String, var password : String)extends AbstractElecteur(_id,_nom,_prenom){
 	type ImplVote = VotePlurinominale
 	type ImplSystemeDecomptage = SystemeDecomptagePlurinomial
-  
+	type Candidate = Candidat
+	
 	def voter(systemeElection : SystemeDecomptagePlurinomial, candidat : Candidat) : Boolean = {
 	return false 
 	}

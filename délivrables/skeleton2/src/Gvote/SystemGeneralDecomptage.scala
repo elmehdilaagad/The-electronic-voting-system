@@ -23,9 +23,9 @@ abstract class SystemGeneralDecomptage(_nom : String) {
     def comptabiliser(numeroTour : Int):Boolean
     //retourne la liste des candidats a la position pos
     def getCandidatAtPos(pos : Int, numeroTour : Int):List[Candidate]
-    //déroulement d'un tour (cloturer le precedent puis en commencer un nouveau si besoin)
+    //deroulement d'un tour (cloturer le precedent puis en commencer un nouveau si besoin)
     def runTour():Unit
     def getGagnantsTour(i : Int): returnList
     def getGagnants(): returnList
-	def getGUIType = GUIType
+	  def getGUIType = GUIType
 }

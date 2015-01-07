@@ -12,7 +12,7 @@ class Parti(_id : Int, _nom : String)  extends Eligible(_id, _nom){
 	}
 	
 	def sePresenter(systemeElection : SystemGeneralDecomptage) : Boolean = {
-		return false//systemeElection.ajouterCandidat(this);
+		return systemeElection.ajouterCandidat(this);
 	}
 	
 }

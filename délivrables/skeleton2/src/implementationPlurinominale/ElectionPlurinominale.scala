@@ -1,7 +1,6 @@
 package implementationPlurinominale
 
 import Gvote._
-import implementationVoteSimple.Candidat
 
 class ElectionPlurinominale(_modeScrutin : ModeScrutin ) extends AbstractElection(_modeScrutin){
 	  type ImplTour = TourPlurinominale
@@ -18,7 +17,7 @@ class ElectionPlurinominale(_modeScrutin : ModeScrutin ) extends AbstractElectio
 	}
 	
 	def getTour (n:Int, list :List[ImplTour]) : ImplTour = {
-	// on peut acceder directement à la list avec des index 
+	// on peut acceder directement a la list avec des index 
 	  return  list.apply(n);
 	}
 	def addSysdecompte(sys : SystemeDecomptagePlurinomial ) : Boolean= {

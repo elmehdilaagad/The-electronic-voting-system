@@ -3,8 +3,6 @@ package main
 import Factory._
 import Gvote._
 import implementationPlurinominale._
-import implementationVoteSimple.Candidat
-import implementationVoteSimple.Parti
 object  testPlurinominale {
 	 def main(args: Array[String]): Unit = {
 	   
@@ -40,7 +38,7 @@ object  testPlurinominale {
 		elec7.voter(systeme, List(candidat2,candidat1))
 		//le candidat 3 gagne
 		systeme.runTour()
-		println("Deuxième tour")
+		println("Deuxieme tour")
 		
 		println(elec1.voter(systeme, List(candidat1)))
 		elec2.voter(systeme, List(candidat1))

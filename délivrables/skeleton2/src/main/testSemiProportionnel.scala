@@ -2,6 +2,8 @@ package main
 
 import Factory.FactorySemiProportionnel
 import implementationVoteSimple._
+import Gvote.Parti
+import Gvote.Candidat
 
 object testSemiProportionnel {
 
