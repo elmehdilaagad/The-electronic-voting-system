@@ -17,15 +17,15 @@ abstract class SystemGeneralDecomptage(_nom : String) {
 	
     def initElection():Unit
     def ajouterCandidat(candidat : Eligible):Boolean
-    def cloturerCandidature:Unit
+    protected def cloturerCandidature:Unit
     def getCandidats() : List[Eligible] = election.listCandidat
     def ajouterVote(vote : ImplVote):Boolean
-    def comptabiliser(numeroTour : Int):Boolean
+    protected def comptabiliser(numeroTour : Int):Boolean
     //retourne la liste des candidats a la position pos
-    def getCandidatAtPos(pos : Int, numeroTour : Int):List[Candidate]
+    protected def getCandidatAtPos(pos : Int, numeroTour : Int):List[Candidate]
     //deroulement d'un tour (cloturer le precedent puis en commencer un nouveau si besoin)
     def runTour():Unit
-    def getGagnantsTour(i : Int): returnList
+    protected def getGagnantsTour(i : Int): returnList
     def getGagnants(): returnList
 	  def getGUIType = GUIType
 }

@@ -16,7 +16,7 @@ import Gvote.Eligible
 import Gvote.Candidat
 import Gvote.Candidat
 
-class SystemDeComptageProportionel(_nom : String, electionProp : ElectionProportionnel) extends SystemGeneralDecomptage(_nom) {
+final class SystemDeComptageProportionel(_nom : String, electionProp : ElectionProportionnel) extends SystemGeneralDecomptage(_nom) {
 	type ImplElecteur = Electeur;
 	type returnList = AbstractSeq[_];
   type Candidate = Parti;
@@ -45,9 +45,7 @@ class SystemDeComptageProportionel(_nom : String, electionProp : ElectionProport
       }
 			return false;
 	}
-	def initElection() = {
-
-		//println("init");
+	 def initElection() = {
 		election.tourList = List(new TourProportionnel(election));
 	}
 
@@ -146,7 +144,7 @@ class SystemDeComptageProportionel(_nom : String, electionProp : ElectionProport
 	}
   var listOfWinner : MutableList[(Parti,BigDecimal,BigDecimal,List[Candidat])] = MutableList();
  for(e <- exList){ 
-    listOfWinner.+=:((e._1,e._2,e._3,e._1.listCandidat.take(e._2.intValue())));
+    listOfWinner.+=:((e._1,e._2,e._3.doubleValue(),e._1.listCandidat.take(e._2.intValue())));
   //  for(d <- e._1.listCandidat.take(e._2.intValue()).reverse)
     //  println(d.nom)
   }

@@ -3,7 +3,7 @@ package implementationProportionnel
 import Gvote._
 //import implementationProportionnel.SystemDeComptageProportionel
 
-class ElecteurProportionnel(_id: Int, var login : String, _nom : String , _prenom: String, var password : String)extends AbstractElecteur(_id,_nom,_prenom){
+ final class ElecteurProportionnel(_id: Int, var login : String, _nom : String , _prenom: String, var password : String)extends AbstractElecteur(_id,_nom,_prenom){
   type ImplVote = VoteProportionnel
   type ImplSystemeDecomptage = SystemDeComptageProportionel
   type Candidate = Parti

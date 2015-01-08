@@ -6,7 +6,7 @@ import Gvote.AbstractTour
 import Gvote.Parti
 
 
-class TourProportionnel(_election : ElectionProportionnel) extends AbstractTour(_election){
+final class TourProportionnel(_election : ElectionProportionnel) extends AbstractTour(_election){
   type ImplVote = VoteProportionnel;
   
   def getNbVote(_parti : Parti) : Int = {

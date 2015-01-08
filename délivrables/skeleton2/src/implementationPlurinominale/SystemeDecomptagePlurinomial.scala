@@ -122,7 +122,7 @@ class SystemeDecomptagePlurinomial(_nom : String ,_election : ElectionPlurinomin
     		}
     	}
 
-    	override 	def getGagnantsTour(numeroTour : Int):List[Candidat]={
+    	final override 	def getGagnantsTour(numeroTour : Int):List[Candidat]={
     	 
 	    	var g  = new scala.collection.mutable.Queue[Candidat]
 	    	var nbGagnant =  election.modeScrutin.listGagnantParTour.apply(tourCourant) ; 

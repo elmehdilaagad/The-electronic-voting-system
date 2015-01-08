@@ -1,13 +1,15 @@
 package main
 
 import Factory.FactorySemiProportionnel
-import implementationVoteSimple._
+import implementationVoteSimple.SystemeDeComptageSemiProportionel
+import implementationVoteSimple.Electeur
 import Gvote.Parti
 import Gvote.Candidat
+import org.scalatest.FunSuite
+import scala.collection.mutable.MutableList
 
-object testSemiProportionnel {
+class TestSemiProportionnel extends FunSuite{
 
-	def main(args : Array[String]) : Unit = {
 	 
 	 /* 
 	  * On doit obligatoirement définir le nombre de siège
@@ -46,12 +48,14 @@ object testSemiProportionnel {
 
 	
 	system.runTour;
-	
-	for (gagnants <- system.getGagnants)
-		println(gagnants.nom +" a obtenu un siege ")
-	
-	
+	/*
+   *List expected 
+   */
+  val listExpected = MutableList(candidat1,candidat3);
+  
+  test("candidat1 et candidat 3 ont obtenu un siège"){
+    assert(system.getGagnants() == listExpected)
+  }
 		
 
-	}
 }

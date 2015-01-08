@@ -5,7 +5,7 @@ import Gvote.AbstractElection
 
 import Gvote.Parti
 
-class ElectionProportionnel(_modeScrutin : ModeScrutin) extends AbstractElection(_modeScrutin){
+final class ElectionProportionnel(_modeScrutin : ModeScrutin) extends AbstractElection(_modeScrutin){
     type ImplTour = TourProportionnel
      type Candidate = Parti
   
