@@ -22,7 +22,11 @@ class  SystemeDecomptageUninominal(_nom : String, election : Election) extends S
             	nb-=1
             }
 		}
-        
+        def initElectionmixte(){
+                election.tourList = List();
+                election.tourList = election.tourList:+(new Tour(election));
+            }
+
         def initCurrentListCandidat(){
             currentListCandidat = election.listCandidat
         }
